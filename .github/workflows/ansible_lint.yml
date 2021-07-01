@@ -1,0 +1,20 @@
+---
+
+name: ansible lint
+
+on:  # noqa yaml
+  - push
+  - pull_request
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install dependencies
+        run: pip3 install ansible ansible-lint yamllint
+
+      - name: lint playbook
+        run: ansible-lint

@@ -1,0 +1,32 @@
+---
+
+- name: allow all internal communication (IPv4)
+  firewalld:
+    source: '{{ lookup("dig", item) }}'
+    zone: trusted
+    permanent: true
+    immediate: true
+    state: enabled
+  loop: '{{ opencast_firewall_internal_hosts }}'
+  when: opencast_firewall_ipv4
+
+- name: allow all internal communication (IPv6)
+  firewalld:
+    source: '{{ lookup("dig", item, "qtype=AAAA") }}'
+    zone: trusted
+    permanent: true
+    immediate: true
+    state: enabled
+  loop: '{{ opencast_firewall_internal_hosts }}'
+  when: opencast_firewall_ipv6
+
+- name: allow https
+  firewalld:
+    service: "{{ item }}"
+    permanent: true
+    immediate: true
+    state: enabled
+  loop:
+    - http
+    - https
+  when: inventory_hostname in opencast_firewall_http_hosts
