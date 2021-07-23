@@ -42,6 +42,6 @@ Example of how to configure and use the role:
 - hosts: servers
   become: true
   roles:
-    - role: lkiesow.opencast_firewalld
+    - role: elan.opencast_firewalld
       opencast_firewall_http_hosts: '{{ groups["opencast"] }}'
 ```
