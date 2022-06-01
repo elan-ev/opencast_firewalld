@@ -2,7 +2,7 @@
 
 - name: ensure firewalld is installed
   package:
-    state: latest
+    state: present
     name:
       - firewalld
 
