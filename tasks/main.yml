@@ -1,33 +1,32 @@
 ---
 
-- name: ensure firewalld is installed
-  package:
-    state: present
-    name:
-      - firewalld
+- name: Ensure firewalld is installed
+  ansible.builtin.package:
+    name: firewalld
 
-- name: allow all internal communication (IPv4)
-  firewalld:
-    source: '{{ lookup("dig", item) }}'
-    zone: trusted
-    permanent: true
-    immediate: true
-    state: enabled
-  loop: '{{ opencast_firewall_internal_hosts }}'
+- name: Allow all internal communication (IPv4)
   when: opencast_firewall_ipv4
-
-- name: allow all internal communication (IPv6)
-  firewalld:
-    source: '{{ lookup("dig", item, "qtype=AAAA") }}'
+  ansible.builtin.firewalld:
+    source: "{{ lookup('community.general.dig', item) }}"
     zone: trusted
     permanent: true
     immediate: true
     state: enabled
   loop: '{{ opencast_firewall_internal_hosts }}'
-  when: opencast_firewall_ipv6
 
-- name: allow https
-  firewalld:
+- name: Allow all internal communication (IPv6)
+  when: opencast_firewall_ipv6
+  ansible.builtin.firewalld:
+    source: "{{ lookup('community.general.dig', item, 'qtype=AAAA') }}"
+    zone: trusted
+    permanent: true
+    immediate: true
+    state: enabled
+  loop: '{{ opencast_firewall_internal_hosts }}'
+
+- name: Allow https
+  when: inventory_hostname in opencast_firewall_http_hosts
+  ansible.builtin.firewalld:
     service: "{{ item }}"
     permanent: true
     immediate: true
@@ -35,4 +34,3 @@
   loop:
     - http
     - https
-  when: inventory_hostname in opencast_firewall_http_hosts

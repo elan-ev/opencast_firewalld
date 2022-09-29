@@ -1,6 +1,5 @@
 ---
-
-opencast_firewall_internal_hosts: '{{ groups["all"] }}'
-opencast_firewall_http_hosts: '{{ groups["all"] }}'
+opencast_firewall_internal_hosts: "{{ groups['all'] }}"
+opencast_firewall_http_hosts: "{{ groups['all'] }}"
 opencast_firewall_ipv4: true
 opencast_firewall_ipv6: false

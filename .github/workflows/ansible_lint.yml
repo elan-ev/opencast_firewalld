@@ -1,5 +1,4 @@
 ---
-
 name: ansible lint
 
 on:  # noqa yaml
@@ -17,4 +16,4 @@ jobs:
         run: pip3 install ansible ansible-lint yamllint
 
       - name: lint playbook
-        run: ansible-lint
+        run: yamllint -c .yamllint . && ansible-lint

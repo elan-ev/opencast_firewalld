@@ -1,0 +1,12 @@
+---
+
+extends: default
+
+rules:
+  line-length: disable
+
+ignore: |
+  venv/
+  .roles/
+  .cache/
+  .github/
