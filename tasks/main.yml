@@ -1,5 +1,11 @@
 ---
 
+- name: ensure firewalld is installed
+  package:
+    state: present
+    name:
+      - firewalld
+
 - name: allow all internal communication (IPv4)
   firewalld:
     source: '{{ lookup("dig", item) }}'
