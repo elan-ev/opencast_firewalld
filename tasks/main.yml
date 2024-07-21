@@ -24,13 +24,18 @@
     state: enabled
   loop: '{{ opencast_firewall_internal_hosts }}'
 
-- name: Allow https
+- name: Allow http
   when: inventory_hostname in opencast_firewall_http_hosts
   ansible.posix.firewalld:
-    service: "{{ item }}"
+    service: http
     permanent: true
     immediate: true
     state: enabled
-  loop:
-    - http
-    - https
+
+- name: Allow https
+  when: inventory_hostname in opencast_firewall_https_hosts
+  ansible.posix.firewalld:
+    service: https
+    permanent: true
+    immediate: true
+    state: enabled
