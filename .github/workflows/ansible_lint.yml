@@ -10,10 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: install dependencies
         run: pip3 install ansible ansible-lint yamllint
 
-      - name: lint playbook
-        run: yamllint -c .yamllint . && ansible-lint
+      - run: yamllint --strict -c .yamllint .
+
+      - run: ansible-lint
