@@ -6,7 +6,7 @@
 
 - name: Allow all internal communication (IPv4)
   when: opencast_firewall_ipv4
-  ansible.builtin.firewalld:
+  ansible.posix.firewalld:
     source: "{{ lookup('community.general.dig', item) }}"
     zone: trusted
     permanent: true
@@ -16,7 +16,7 @@
 
 - name: Allow all internal communication (IPv6)
   when: opencast_firewall_ipv6
-  ansible.builtin.firewalld:
+  ansible.posix.firewalld:
     source: "{{ lookup('community.general.dig', item, 'qtype=AAAA') }}"
     zone: trusted
     permanent: true
@@ -26,7 +26,7 @@
 
 - name: Allow https
   when: inventory_hostname in opencast_firewall_http_hosts
-  ansible.builtin.firewalld:
+  ansible.posix.firewalld:
     service: "{{ item }}"
     permanent: true
     immediate: true
