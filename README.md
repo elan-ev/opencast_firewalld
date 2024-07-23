@@ -25,8 +25,10 @@ Role Variables
 - `opencast_firewall_internal_hosts`
     - List of hosts between which to allow all network communication (default: `groups["all"]`)
 - `opencast_firewall_http_hosts`
-    - List of hosts to allow external HTTP(S) communications to (default: `groups["all"]`)
-	 - Often makes sense to set this to something like `groups["opencast"]`
+    - List of hosts to allow external HTTP communications to (default: `groups["all"]`)
+    - Often makes sense to set this to something like `groups["opencast"]`
+- `opencast_firewall_https_hosts`
+    - List of hosts to allow external HTTPS communications to (default: `opencast_firewall_http_hosts`)
 - `opencast_firewall_ipv4`
     - Look up IPv4 addresses of hostnames
 - `opencast_firewall_ipv6`
